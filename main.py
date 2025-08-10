@@ -40,6 +40,285 @@ from lxml import etree as ET
 APP_NAME = "LGS XML"
 TZ = "Europe/Prague"  # informational; Windows uses local time for yymmdd_hhmmss
 
+# ============================================================================
+# MODERN UI STYLING - Minimalist White-Gray with Financial Green Theme
+# ============================================================================
+
+COLORS = {
+    "primary_green": "#10B981",      # Financial green (emerald)
+    "primary_green_hover": "#059669", # Darker green on hover  
+    "primary_green_light": "#D1FAE5", # Light green background
+    "primary_green_dark": "#047857",  # Even darker green for active states
+    "background": "#F8FAFC",         # Very light gray background
+    "card_bg": "#FFFFFF",            # Pure white cards
+    "border": "#E2E8F0",             # Light gray borders
+    "border_hover": "#CBD5E1",       # Slightly darker border on hover
+    "text_primary": "#1E293B",       # Dark gray text
+    "text_secondary": "#64748B",     # Medium gray text
+    "text_muted": "#94A3B8",         # Light gray text
+    "shadow": "rgba(0, 0, 0, 0.08)", # Subtle shadow
+    "shadow_hover": "rgba(0, 0, 0, 0.12)", # Stronger shadow on hover
+    "error": "#EF4444",              # Red for errors
+    "warning": "#F59E0B",            # Orange for warnings
+    "success": "#10B981",            # Green for success (same as primary)
+    "dropzone_bg": "#F1F5F9",        # Light gray for dropzone
+    "dropzone_border": "#CBD5E1",    # Border for dropzone
+    "dropzone_hover": "#E2E8F0",     # Hover state for dropzone
+}
+
+def get_modern_stylesheet() -> str:
+    """Return complete modern stylesheet for the application"""
+    return f"""
+    /* Main Application Window */
+    QMainWindow {{
+        background-color: {COLORS['background']};
+        font-family: 'Segoe UI', 'SF Pro Display', system-ui, sans-serif;
+        font-size: 10pt;
+        color: {COLORS['text_primary']};
+    }}
+    
+    /* Cards and Panels */
+    QFrame {{
+        background-color: {COLORS['card_bg']};
+        border: 1px solid {COLORS['border']};
+        border-radius: 12px;
+        padding: 16px;
+        margin: 8px;
+    }}
+    
+    /* Dropzone Frame - Special styling */
+    DropFrame {{
+        background-color: {COLORS['dropzone_bg']};
+        border: 2px dashed {COLORS['dropzone_border']};
+        border-radius: 16px;
+        min-height: 120px;
+        padding: 24px;
+        margin: 12px;
+        font-size: 11pt;
+        color: {COLORS['text_secondary']};
+    }}
+    
+    DropFrame:hover {{
+        background-color: {COLORS['dropzone_hover']};
+        border-color: {COLORS['primary_green']};
+        color: {COLORS['primary_green']};
+    }}
+    
+    /* Modern Buttons */
+    QPushButton {{
+        background-color: {COLORS['card_bg']};
+        border: 1px solid {COLORS['border']};
+        border-radius: 8px;
+        padding: 10px 16px;
+        font-weight: 500;
+        font-size: 9pt;
+        color: {COLORS['text_primary']};
+        min-height: 16px;
+    }}
+    
+    QPushButton:hover {{
+        background-color: {COLORS['primary_green_light']};
+        border-color: {COLORS['primary_green']};
+        color: {COLORS['primary_green_dark']};
+    }}
+    
+    QPushButton:pressed {{
+        background-color: {COLORS['primary_green']};
+        color: white;
+        border-color: {COLORS['primary_green_dark']};
+    }}
+    
+    /* Primary Action Button */
+    QPushButton#primary {{
+        background-color: {COLORS['primary_green']};
+        color: white;
+        border: none;
+        font-weight: 600;
+        font-size: 11pt;
+        padding: 12px 24px;
+        min-height: 20px;
+    }}
+    
+    QPushButton#primary:hover {{
+        background-color: {COLORS['primary_green_hover']};
+    }}
+    
+    QPushButton#primary:pressed {{
+        background-color: {COLORS['primary_green_dark']};
+    }}
+    
+    /* Dropdown ComboBox */
+    QComboBox {{
+        background-color: {COLORS['card_bg']};
+        border: 1px solid {COLORS['border']};
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-size: 10pt;
+        color: {COLORS['text_primary']};
+        min-height: 16px;
+    }}
+    
+    QComboBox:hover {{
+        border-color: {COLORS['primary_green']};
+    }}
+    
+    QComboBox::drop-down {{
+        border: none;
+        width: 20px;
+    }}
+    
+    QComboBox::down-arrow {{
+        image: none;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 6px solid {COLORS['text_secondary']};
+        margin-right: 8px;
+    }}
+    
+    /* Input Fields */
+    QLineEdit {{
+        background-color: {COLORS['card_bg']};
+        border: 1px solid {COLORS['border']};
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-size: 10pt;
+        color: {COLORS['text_primary']};
+    }}
+    
+    QLineEdit:focus {{
+        border-color: {COLORS['primary_green']};
+        outline: none;
+    }}
+    
+    /* Labels */
+    QLabel {{
+        color: {COLORS['text_primary']};
+        font-size: 10pt;
+        font-weight: 500;
+    }}
+    
+    QLabel#header {{
+        font-size: 14pt;
+        font-weight: 700;
+        color: {COLORS['text_primary']};
+        margin-bottom: 8px;
+    }}
+    
+    QLabel#subtitle {{
+        color: {COLORS['text_secondary']};
+        font-size: 9pt;
+        font-weight: 400;
+    }}
+    
+    /* Checkboxes */
+    QCheckBox {{
+        color: {COLORS['text_primary']};
+        font-size: 10pt;
+        spacing: 8px;
+    }}
+    
+    QCheckBox::indicator {{
+        width: 18px;
+        height: 18px;
+        border: 2px solid {COLORS['border']};
+        border-radius: 4px;
+        background-color: {COLORS['card_bg']};
+    }}
+    
+    QCheckBox::indicator:hover {{
+        border-color: {COLORS['primary_green']};
+    }}
+    
+    QCheckBox::indicator:checked {{
+        background-color: {COLORS['primary_green']};
+        border-color: {COLORS['primary_green']};
+        image: none;
+    }}
+    
+    QCheckBox::indicator:checked:hover {{
+        background-color: {COLORS['primary_green_hover']};
+    }}
+    
+    /* Text Areas */
+    QTextEdit {{
+        background-color: {COLORS['card_bg']};
+        border: 1px solid {COLORS['border']};
+        border-radius: 8px;
+        padding: 12px;
+        font-family: 'Consolas', 'Monaco', monospace;
+        font-size: 9pt;
+        color: {COLORS['text_primary']};
+        line-height: 1.4;
+    }}
+    
+    /* Scrollbars */
+    QScrollBar:vertical {{
+        background-color: {COLORS['background']};
+        width: 8px;
+        border-radius: 4px;
+    }}
+    
+    QScrollBar::handle:vertical {{
+        background-color: {COLORS['border_hover']};
+        border-radius: 4px;
+        min-height: 20px;
+    }}
+    
+    QScrollBar::handle:vertical:hover {{
+        background-color: {COLORS['text_muted']};
+    }}
+    
+    /* Status Messages */
+    QLabel#status_success {{
+        color: {COLORS['success']};
+        font-weight: 600;
+    }}
+    
+    QLabel#status_error {{
+        color: {COLORS['error']};
+        font-weight: 600;
+    }}
+    
+    QLabel#status_warning {{
+        color: {COLORS['warning']};
+        font-weight: 600;
+    }}
+    """
+
+# Animation and Effects Helper
+class ModernEffects:
+    @staticmethod
+    def add_hover_effect(widget):
+        """Add smooth hover effect to any widget"""
+        def on_enter(event):
+            widget.setProperty("hover", True)
+            widget.style().polish(widget)
+            
+        def on_leave(event):
+            widget.setProperty("hover", False) 
+            widget.style().polish(widget)
+            
+        widget.enterEvent = on_enter
+        widget.leaveEvent = on_leave
+    
+    @staticmethod
+    def add_click_effect(widget):
+        """Add click ripple effect"""
+        original_click = widget.mousePressEvent
+        
+        def enhanced_click(event):
+            # Create subtle flash effect
+            widget.setProperty("clicked", True)
+            widget.style().polish(widget)
+            QtCore.QTimer.singleShot(100, lambda: [
+                widget.setProperty("clicked", False),
+                widget.style().polish(widget)
+            ])
+            if original_click:
+                original_click(event)
+                
+        widget.mousePressEvent = enhanced_click
+
 # --------------------------------------------------------------------------------------
 # Configuration (defaults) – mirrors PRD; can be overridden by external config.json
 # --------------------------------------------------------------------------------------
@@ -901,13 +1180,18 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__()
         self.setWindowTitle(APP_NAME)
         self.resize(900, 600)
+        
+        # Apply modern styling
+        self.setStyleSheet(get_modern_stylesheet())
+        
         self.cfg = load_config()
         self.adapter = ExcelAdapter(self.cfg)
         self.xlsx_path: Optional[Path] = None
         self.month_year: Optional[Tuple[int,int]] = None
 
         # Top controls
-        outlet_lbl = QtWidgets.QLabel("Provoz:")
+        outlet_lbl = QtWidgets.QLabel("Vyberte provoz:")
+        outlet_lbl.setObjectName("header")
         self.outlet = QtWidgets.QComboBox(); self.outlet.addItems(["Bistro","Restaurant","CDL","B&G","Molo2"]) 
 
         self.drop = DropFrame(); self.drop.fileDropped.connect(self.on_file_dropped)
@@ -925,6 +1209,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.out_dir = QtWidgets.QLineEdit(str(OUTPUT_DIR));
         out_btn = QtWidgets.QPushButton("Změnit…"); out_btn.clicked.connect(self.pick_output_dir)
         gen_btn = QtWidgets.QPushButton("Generovat XML"); gen_btn.clicked.connect(self.generate)
+        gen_btn.setObjectName("primary")  # Apply primary styling
         open_btn = QtWidgets.QPushButton("Otevřít složku"); open_btn.clicked.connect(self.open_output)
 
         # Status / log
@@ -945,15 +1230,40 @@ class MainWindow(QtWidgets.QMainWindow):
         orow = QtWidgets.QHBoxLayout(); orow.addWidget(QtWidgets.QLabel("Výstup:")); orow.addWidget(self.out_dir); orow.addWidget(out_btn); v.addLayout(orow)
         # actions
         ab = QtWidgets.QHBoxLayout(); ab.addWidget(gen_btn); ab.addStretch(); ab.addWidget(open_btn); v.addLayout(ab)
-        v.addWidget(QtWidgets.QLabel("Stav:"))
+        status_lbl = QtWidgets.QLabel("Stav zpracování:")
+        status_lbl.setObjectName("header")
+        v.addWidget(status_lbl)
         v.addWidget(self.status)
 
+        # Apply modern effects to interactive elements
+        ModernEffects.add_hover_effect(gen_btn)
+        ModernEffects.add_click_effect(gen_btn)
+        ModernEffects.add_hover_effect(pick_btn)
+        ModernEffects.add_hover_effect(out_btn)
+        ModernEffects.add_hover_effect(open_btn)
+        ModernEffects.add_hover_effect(btn_all)
+        ModernEffects.add_hover_effect(btn_weekend)
+        ModernEffects.add_hover_effect(btn_work)
+        ModernEffects.add_hover_effect(btn_clear)
+        
         self.append_status("Připraveno.")
         self.append_status(f"XML soubory se ukládají do: {OUTPUT_DIR}")
         self.append_status(f"Konfigurace a logy: {APP_DATA_DIR}")
 
-    def append_status(self, msg: str):
-        self.status.append(f"• {msg}")
+    def append_status(self, msg: str, status_type: str = "info"):
+        """Add status message with color coding"""
+        # Color-coded status messages
+        if "Chyba" in msg or "Error" in msg:
+            color = COLORS["error"]
+        elif "Hotovo" in msg or "vytvořeno" in msg:
+            color = COLORS["success"]
+        elif "Varování" in msg or "Warning" in msg:
+            color = COLORS["warning"]
+        else:
+            color = COLORS["text_primary"]
+            
+        # Add with HTML formatting for color
+        self.status.append(f'<span style="color: {color};">• {msg}</span>')
         write_log(msg)
 
     def pick_file(self):
