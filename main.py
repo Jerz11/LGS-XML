@@ -66,167 +66,208 @@ COLORS = {
     "dropzone_hover": "#E2E8F0",     # Hover state for dropzone
 }
 
-def get_modern_stylesheet() -> str:
-    """Return complete modern stylesheet for the application"""
+def get_professional_stylesheet() -> str:
+    """Return professional stylesheet inspired by modern file upload interfaces"""
     return f"""
-    /* Main Application Window */
+    /* Main Application Window - Professional Background */
     QMainWindow {{
-        background-color: {COLORS['background']};
-        font-family: 'Segoe UI', 'SF Pro Display', system-ui, sans-serif;
+        background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+            stop: 0 #FAFBFC, stop: 1 #F1F3F4);
+        font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
         font-size: 10pt;
         color: {COLORS['text_primary']};
     }}
     
-    /* Cards and Panels */
-    QFrame {{
-        background-color: {COLORS['card_bg']};
-        border: 1px solid {COLORS['border']};
+    /* Remove card styling for compact layout */
+    
+    /* Professional Dropzone - Compact */
+    DropFrame {{
+        background-color: #FAFBFF;
+        border: 2px dashed #D1D9E0;
         border-radius: 12px;
-        padding: 16px;
+        min-height: 100px;
+        padding: 20px;
         margin: 8px;
     }}
     
-    /* Dropzone Frame - Special styling */
-    DropFrame {{
-        background-color: {COLORS['dropzone_bg']};
-        border: 2px dashed {COLORS['dropzone_border']};
-        border-radius: 16px;
-        min-height: 120px;
-        padding: 24px;
-        margin: 12px;
-        font-size: 11pt;
-        color: {COLORS['text_secondary']};
-    }}
-    
     DropFrame:hover {{
-        background-color: {COLORS['dropzone_hover']};
+        background-color: #F0F7FF;
         border-color: {COLORS['primary_green']};
-        color: {COLORS['primary_green']};
+        border-width: 2px;
+        border-style: dashed;
     }}
     
-    /* Modern Buttons */
+    /* Modern Button System */
     QPushButton {{
-        background-color: {COLORS['card_bg']};
-        border: 1px solid {COLORS['border']};
-        border-radius: 8px;
-        padding: 10px 16px;
+        background-color: white;
+        border: 1px solid #E8EAED;
+        border-radius: 12px;
+        padding: 12px 20px;
         font-weight: 500;
-        font-size: 9pt;
+        font-size: 10pt;
         color: {COLORS['text_primary']};
-        min-height: 16px;
+        min-height: 20px;
+        min-width: 80px;
     }}
     
     QPushButton:hover {{
-        background-color: {COLORS['primary_green_light']};
-        border-color: {COLORS['primary_green']};
-        color: {COLORS['primary_green_dark']};
+        background-color: #F8F9FA;
+        border-color: #DADCE0;
     }}
     
     QPushButton:pressed {{
-        background-color: {COLORS['primary_green']};
-        color: white;
-        border-color: {COLORS['primary_green_dark']};
+        background-color: #F1F3F4;
     }}
     
-    /* Primary Action Button */
+    /* Primary Action Button - Professional Green */
     QPushButton#primary {{
-        background-color: {COLORS['primary_green']};
+        background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+            stop: 0 #16A085, stop: 1 #138D75);
         color: white;
         border: none;
         font-weight: 600;
         font-size: 11pt;
-        padding: 12px 24px;
-        min-height: 20px;
+        padding: 16px 32px;
+        min-height: 24px;
+        border-radius: 12px;
     }}
     
     QPushButton#primary:hover {{
-        background-color: {COLORS['primary_green_hover']};
+        background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+            stop: 0 #17A589, stop: 1 #148F77);
     }}
     
     QPushButton#primary:pressed {{
-        background-color: {COLORS['primary_green_dark']};
+        background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+            stop: 0 #138D75, stop: 1 #117A65);
     }}
     
-    /* Dropdown ComboBox */
+    /* Secondary Buttons */
+    QPushButton#secondary {{
+        background-color: {COLORS['primary_green_light']};
+        border: 1px solid {COLORS['primary_green']};
+        color: {COLORS['primary_green_dark']};
+        font-weight: 600;
+    }}
+    
+    QPushButton#secondary:hover {{
+        background-color: white;
+    }}
+    
+    /* Professional ComboBox */
     QComboBox {{
-        background-color: {COLORS['card_bg']};
-        border: 1px solid {COLORS['border']};
-        border-radius: 8px;
-        padding: 8px 12px;
-        font-size: 10pt;
+        background-color: white;
+        border: 1px solid #E8EAED;
+        border-radius: 12px;
+        padding: 12px 16px;
+        font-size: 11pt;
         color: {COLORS['text_primary']};
-        min-height: 16px;
+        min-height: 24px;
+        font-weight: 500;
     }}
     
     QComboBox:hover {{
         border-color: {COLORS['primary_green']};
     }}
     
+    QComboBox:focus {{
+        border-color: {COLORS['primary_green']};
+        border-width: 2px;
+    }}
+    
     QComboBox::drop-down {{
         border: none;
-        width: 20px;
+        width: 30px;
+        padding-right: 8px;
     }}
     
     QComboBox::down-arrow {{
         image: none;
-        border-left: 4px solid transparent;
-        border-right: 4px solid transparent;
-        border-top: 6px solid {COLORS['text_secondary']};
-        margin-right: 8px;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 7px solid #9AA0A6;
+        margin-right: 4px;
+    }}
+    
+    QComboBox QAbstractItemView {{
+        background-color: white;
+        border: 1px solid #E8EAED;
+        border-radius: 8px;
+        padding: 4px;
+        selection-background-color: {COLORS['primary_green_light']};
     }}
     
     /* Input Fields */
     QLineEdit {{
-        background-color: {COLORS['card_bg']};
-        border: 1px solid {COLORS['border']};
-        border-radius: 8px;
-        padding: 8px 12px;
+        background-color: white;
+        border: 1px solid #E8EAED;
+        border-radius: 12px;
+        padding: 12px 16px;
         font-size: 10pt;
         color: {COLORS['text_primary']};
+        min-height: 20px;
     }}
     
     QLineEdit:focus {{
         border-color: {COLORS['primary_green']};
-        outline: none;
+        border-width: 2px;
     }}
     
-    /* Labels */
+    /* Professional Typography */
     QLabel {{
         color: {COLORS['text_primary']};
         font-size: 10pt;
         font-weight: 500;
     }}
     
-    QLabel#header {{
-        font-size: 14pt;
+    QLabel#title {{
+        font-size: 18pt;
         font-weight: 700;
-        color: {COLORS['text_primary']};
-        margin-bottom: 8px;
+        color: #1A1B1F;
+        margin-bottom: 4px;
+    }}
+    
+    QLabel#section_header {{
+        font-size: 14pt;
+        font-weight: 600;
+        color: #1A1B1F;
+        margin-bottom: 12px;
+        margin-top: 8px;
     }}
     
     QLabel#subtitle {{
-        color: {COLORS['text_secondary']};
+        color: #5F6368;
         font-size: 9pt;
         font-weight: 400;
+        margin-bottom: 16px;
     }}
     
-    /* Checkboxes */
+    QLabel#info {{
+        color: #5F6368;
+        font-size: 9pt;
+        font-weight: 400;
+        font-style: italic;
+    }}
+    
+    /* Modern Checkboxes */
     QCheckBox {{
         color: {COLORS['text_primary']};
         font-size: 10pt;
-        spacing: 8px;
+        spacing: 12px;
+        padding: 4px;
     }}
     
     QCheckBox::indicator {{
-        width: 18px;
-        height: 18px;
-        border: 2px solid {COLORS['border']};
-        border-radius: 4px;
-        background-color: {COLORS['card_bg']};
+        width: 20px;
+        height: 20px;
+        border: 2px solid #DADCE0;
+        border-radius: 6px;
+        background-color: white;
     }}
     
     QCheckBox::indicator:hover {{
         border-color: {COLORS['primary_green']};
+        background-color: {COLORS['primary_green_light']};
     }}
     
     QCheckBox::indicator:checked {{
@@ -239,49 +280,68 @@ def get_modern_stylesheet() -> str:
         background-color: {COLORS['primary_green_hover']};
     }}
     
-    /* Text Areas */
+    /* Professional Text Areas */
     QTextEdit {{
-        background-color: {COLORS['card_bg']};
-        border: 1px solid {COLORS['border']};
-        border-radius: 8px;
-        padding: 12px;
-        font-family: 'Consolas', 'Monaco', monospace;
+        background-color: white;
+        border: 1px solid #E8EAED;
+        border-radius: 12px;
+        padding: 16px;
+        font-family: 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
         font-size: 9pt;
         color: {COLORS['text_primary']};
-        line-height: 1.4;
+        line-height: 1.5;
     }}
     
-    /* Scrollbars */
+    /* Custom Scrollbars */
     QScrollBar:vertical {{
-        background-color: {COLORS['background']};
-        width: 8px;
-        border-radius: 4px;
+        background-color: transparent;
+        width: 12px;
+        border-radius: 6px;
+        margin: 3px;
     }}
     
     QScrollBar::handle:vertical {{
-        background-color: {COLORS['border_hover']};
-        border-radius: 4px;
-        min-height: 20px;
+        background-color: #DADCE0;
+        border-radius: 6px;
+        min-height: 30px;
+        margin: 2px;
     }}
     
     QScrollBar::handle:vertical:hover {{
-        background-color: {COLORS['text_muted']};
+        background-color: #BDC1C6;
     }}
     
-    /* Status Messages */
+    QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {{
+        border: none;
+        background: none;
+    }}
+    
+    /* Professional Status Messages */
     QLabel#status_success {{
-        color: {COLORS['success']};
+        color: #137333;
         font-weight: 600;
+        background-color: #E8F5E8;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border-left: 4px solid #137333;
     }}
     
     QLabel#status_error {{
-        color: {COLORS['error']};
+        color: #D93025;
         font-weight: 600;
+        background-color: #FCE8E6;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border-left: 4px solid #D93025;
     }}
     
     QLabel#status_warning {{
-        color: {COLORS['warning']};
+        color: #E37400;
         font-weight: 600;
+        background-color: #FEF7E0;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border-left: 4px solid #E37400;
     }}
     """
 
@@ -330,6 +390,7 @@ DEFAULT_CONFIG = {
     "application": "Transformace",
     "note_text": "tržby",
     "timezone": TZ,
+    "output_dir": str(Path.home() / "Documents" / "Pohoda XML"),  # User's preferred output directory
     "naming": {
         "pokladna": "Pokladna {DD.M.YYYY} - {OUTLET} - {ID}.xml",
         "ostatni":  "OstatniPohledavky {DD.M.YYYY} - {METHOD_LABEL} - {OUTLET} - {ID}.xml",
@@ -509,6 +570,16 @@ def load_config() -> dict:
     # write default if not exists
     CONFIG_PATH.write_text(json.dumps(DEFAULT_CONFIG, ensure_ascii=False, indent=2), encoding="utf-8")
     return DEFAULT_CONFIG
+
+
+def save_config(config: dict):
+    """Save configuration to config.json"""
+    ensure_dirs()
+    try:
+        CONFIG_PATH.write_text(json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8")
+        write_log(f"Config saved to {CONFIG_PATH}")
+    except Exception as e:
+        write_log(f"Failed to save config: {e}")
 
 
 def log_path_today() -> Path:
@@ -1118,12 +1189,41 @@ class DropFrame(QtWidgets.QFrame):
 
     def __init__(self):
         super().__init__()
-        self.setFrameStyle(QtWidgets.QFrame.StyledPanel | QtWidgets.QFrame.Plain)
         self.setAcceptDrops(True)
-        self.setMinimumHeight(200)
-        self.setStyleSheet("QFrame { border: 2px dashed #888; border-radius: 12px; }")
-        self.label = QtWidgets.QLabel("⇩  Přetáhni soubor sem  ⇩", alignment=QtCore.Qt.AlignCenter)
-        lay = QtWidgets.QVBoxLayout(self); lay.addWidget(self.label)
+        self.setMinimumHeight(100)
+        
+        # Create compact professional dropzone layout
+        layout = QtWidgets.QVBoxLayout(self)
+        layout.setAlignment(QtCore.Qt.AlignCenter)
+        layout.setSpacing(8)
+        layout.setContentsMargins(16, 12, 16, 12)
+        
+        # Upload icon and text in horizontal layout for compactness
+        content_layout = QtWidgets.QHBoxLayout()
+        content_layout.setAlignment(QtCore.Qt.AlignCenter)
+        content_layout.setSpacing(12)
+        
+        # Upload icon (smaller)
+        icon_label = QtWidgets.QLabel("📁")
+        icon_label.setStyleSheet("font-size: 24px; color: #5F6368;")
+        content_layout.addWidget(icon_label)
+        
+        # Text container
+        text_layout = QtWidgets.QVBoxLayout()
+        text_layout.setSpacing(2)
+        
+        # Main text (smaller)
+        main_text = QtWidgets.QLabel("Přetáhněte Excel soubor sem")
+        main_text.setStyleSheet("font-size: 12px; font-weight: 600; color: #1A1B1F;")
+        text_layout.addWidget(main_text)
+        
+        # Sub text (smaller)
+        sub_text = QtWidgets.QLabel("nebo použijte tlačítko níže • .xlsx")
+        sub_text.setStyleSheet("font-size: 10px; color: #5F6368;")
+        text_layout.addWidget(sub_text)
+        
+        content_layout.addLayout(text_layout)
+        layout.addLayout(content_layout)
 
     def dragEnterEvent(self, e: QtGui.QDragEnterEvent):
         if e.mimeData().hasUrls():
@@ -1181,59 +1281,111 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setWindowTitle(APP_NAME)
         self.resize(900, 600)
         
-        # Apply modern styling
-        self.setStyleSheet(get_modern_stylesheet())
+        # Apply professional styling
+        self.setStyleSheet(get_professional_stylesheet())
         
         self.cfg = load_config()
         self.adapter = ExcelAdapter(self.cfg)
         self.xlsx_path: Optional[Path] = None
         self.month_year: Optional[Tuple[int,int]] = None
 
-        # Top controls
-        outlet_lbl = QtWidgets.QLabel("Vyberte provoz:")
-        outlet_lbl.setObjectName("header")
-        self.outlet = QtWidgets.QComboBox(); self.outlet.addItems(["Bistro","Restaurant","CDL","B&G","Molo2"]) 
-
-        self.drop = DropFrame(); self.drop.fileDropped.connect(self.on_file_dropped)
-        pick_btn = QtWidgets.QPushButton("Vybrat soubor…"); pick_btn.clicked.connect(self.pick_file)
-
-        # Day controls
+        # Create compact professional layout (original structure with modern styling)
+        central = QtWidgets.QWidget()
+        self.setCentralWidget(central)
+        main_layout = QtWidgets.QVBoxLayout(central)
+        main_layout.setSpacing(8)
+        main_layout.setContentsMargins(16, 16, 16, 16)
+        
+        # Top row: Outlet selection
+        top_layout = QtWidgets.QHBoxLayout()
+        outlet_lbl = QtWidgets.QLabel("Provoz:")
+        outlet_lbl.setObjectName("section_header")
+        self.outlet = QtWidgets.QComboBox()
+        self.outlet.addItems(["Bistro", "Restaurant", "CDL", "B&G", "Molo2"])
+        top_layout.addWidget(outlet_lbl)
+        top_layout.addWidget(self.outlet)
+        top_layout.addStretch()
+        main_layout.addLayout(top_layout)
+        
+        # Dropzone
+        self.drop = DropFrame()
+        self.drop.fileDropped.connect(self.on_file_dropped)
+        main_layout.addWidget(self.drop)
+        
+        # Browse button - compact, not full width
+        browse_layout = QtWidgets.QHBoxLayout()
+        pick_btn = QtWidgets.QPushButton("📁 Vybrat soubor...")
+        pick_btn.clicked.connect(self.pick_file)
+        pick_btn.setObjectName("secondary")
+        pick_btn.setMaximumWidth(150)
+        browse_layout.addWidget(pick_btn)
+        browse_layout.addStretch()
+        main_layout.addLayout(browse_layout)
+        
+        # Day info
         self.day_info = QtWidgets.QLabel("Detekováno: —")
+        self.day_info.setObjectName("info")
+        main_layout.addWidget(self.day_info)
+        
+        # Day selection controls - compact row above picker
+        day_controls_layout = QtWidgets.QHBoxLayout()
+        day_controls_layout.addWidget(QtWidgets.QLabel("Vyberte dny:"))
+        day_controls_layout.addStretch()
+        
+        # Compact control buttons
+        btn_all = QtWidgets.QPushButton("✓ Vše")
+        btn_all.clicked.connect(lambda: self.picker.mark_all(True))
+        btn_all.setMaximumWidth(60)
+        btn_all.setMaximumHeight(28)
+        
+        btn_clear = QtWidgets.QPushButton("✗ Clear")
+        btn_clear.clicked.connect(lambda: self.picker.mark_all(False))
+        btn_clear.setMaximumWidth(60)
+        btn_clear.setMaximumHeight(28)
+        
+        day_controls_layout.addWidget(btn_all)
+        day_controls_layout.addWidget(btn_clear)
+        main_layout.addLayout(day_controls_layout)
+        
+        # Day picker grid (now without side controls)
         self.picker = DayPicker()
-        btn_all = QtWidgets.QPushButton("Vše"); btn_all.clicked.connect(lambda: self.picker.mark_all(True))
-        btn_weekend = QtWidgets.QPushButton("Víkendy"); btn_weekend.clicked.connect(self.mark_weekends)
-        btn_work = QtWidgets.QPushButton("Prac. dny"); btn_work.clicked.connect(self.mark_workdays)
-        btn_clear = QtWidgets.QPushButton("Clear"); btn_clear.clicked.connect(lambda: self.picker.mark_all(False))
-
-        # Output
-        self.out_dir = QtWidgets.QLineEdit(str(OUTPUT_DIR));
-        out_btn = QtWidgets.QPushButton("Změnit…"); out_btn.clicked.connect(self.pick_output_dir)
-        gen_btn = QtWidgets.QPushButton("Generovat XML"); gen_btn.clicked.connect(self.generate)
-        gen_btn.setObjectName("primary")  # Apply primary styling
-        open_btn = QtWidgets.QPushButton("Otevřít složku"); open_btn.clicked.connect(self.open_output)
-
-        # Status / log
-        self.status = QtWidgets.QTextEdit(); self.status.setReadOnly(True)
-
-        # Layout
-        central = QtWidgets.QWidget(); self.setCentralWidget(central)
-        v = QtWidgets.QVBoxLayout(central)
-        top = QtWidgets.QHBoxLayout(); top.addWidget(outlet_lbl); top.addWidget(self.outlet); top.addStretch(); v.addLayout(top)
-        v.addWidget(self.drop)
-        v.addWidget(pick_btn)
-        v.addWidget(self.day_info)
-        # picker panel
-        hp = QtWidgets.QHBoxLayout(); hp.addWidget(self.picker); side = QtWidgets.QVBoxLayout();
-        side.addWidget(btn_all); side.addWidget(btn_weekend); side.addWidget(btn_work); side.addWidget(btn_clear); side.addStretch(); hp.addLayout(side)
-        v.addLayout(hp)
-        # output row
-        orow = QtWidgets.QHBoxLayout(); orow.addWidget(QtWidgets.QLabel("Výstup:")); orow.addWidget(self.out_dir); orow.addWidget(out_btn); v.addLayout(orow)
-        # actions
-        ab = QtWidgets.QHBoxLayout(); ab.addWidget(gen_btn); ab.addStretch(); ab.addWidget(open_btn); v.addLayout(ab)
-        status_lbl = QtWidgets.QLabel("Stav zpracování:")
-        status_lbl.setObjectName("header")
-        v.addWidget(status_lbl)
-        v.addWidget(self.status)
+        main_layout.addWidget(self.picker)
+        
+        # Output row
+        output_layout = QtWidgets.QHBoxLayout()
+        output_layout.addWidget(QtWidgets.QLabel("Výstup:"))
+        # Load output directory from config, fallback to default
+        saved_output_dir = self.cfg.get("output_dir", str(OUTPUT_DIR))
+        self.out_dir = QtWidgets.QLineEdit(saved_output_dir)
+        output_layout.addWidget(self.out_dir, 1)
+        out_btn = QtWidgets.QPushButton("📁 Změnit...")
+        out_btn.clicked.connect(self.pick_output_dir)
+        output_layout.addWidget(out_btn)
+        main_layout.addLayout(output_layout)
+        
+        # Action buttons row
+        action_layout = QtWidgets.QHBoxLayout()
+        gen_btn = QtWidgets.QPushButton("🚀 Generovat XML")
+        gen_btn.clicked.connect(self.generate)
+        gen_btn.setObjectName("primary")
+        action_layout.addWidget(gen_btn)
+        action_layout.addStretch()
+        
+        open_btn = QtWidgets.QPushButton("📂 Otevřít složku")
+        open_btn.clicked.connect(self.open_output)
+        open_btn.setObjectName("secondary")
+        action_layout.addWidget(open_btn)
+        main_layout.addLayout(action_layout)
+        
+        # Status section
+        status_lbl = QtWidgets.QLabel("📋 Stav:")
+        status_lbl.setObjectName("section_header")
+        main_layout.addWidget(status_lbl)
+        
+        self.status = QtWidgets.QTextEdit()
+        self.status.setReadOnly(True)
+        self.status.setMaximumHeight(120)  # Compact height
+        main_layout.addWidget(self.status)
 
         # Apply modern effects to interactive elements
         ModernEffects.add_hover_effect(gen_btn)
@@ -1242,8 +1394,6 @@ class MainWindow(QtWidgets.QMainWindow):
         ModernEffects.add_hover_effect(out_btn)
         ModernEffects.add_hover_effect(open_btn)
         ModernEffects.add_hover_effect(btn_all)
-        ModernEffects.add_hover_effect(btn_weekend)
-        ModernEffects.add_hover_effect(btn_work)
         ModernEffects.add_hover_effect(btn_clear)
         
         self.append_status("Připraveno.")
@@ -1325,6 +1475,10 @@ class MainWindow(QtWidgets.QMainWindow):
         d = QtWidgets.QFileDialog.getExistingDirectory(self, "Výstupní složka", self.out_dir.text())
         if d:
             self.out_dir.setText(d)
+            # Save the new output directory to config
+            self.cfg["output_dir"] = d
+            save_config(self.cfg)
+            self.append_status(f"Výstupní složka změněna na: {d}")
 
     def open_output(self):
         path = self.out_dir.text()
