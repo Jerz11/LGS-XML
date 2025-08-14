@@ -18,9 +18,14 @@ def build_application():
         "--onedir", 
         "--windowed",
         "--name", "LGS XML",
-        "--icon", "icon.ico",  # Add icon if available
         "main.py"
     ]
+    
+    # Add icon if available
+    icon_path = Path("icon.ico")
+    if icon_path.exists():
+        cmd.insert(-1, "--icon")
+        cmd.insert(-1, str(icon_path))
     
     print("Building LGS XML application...")
     print(f"Command: {' '.join(cmd)}")

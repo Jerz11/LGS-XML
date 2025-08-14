@@ -47,6 +47,17 @@
         "base_none": "^Základ 0% \\(Voucher\\)$",
         "vat_none": "^DPH 0% \\(Voucher\\)$",
         "gross_none": "^Tržby s DPH 0% \\(Voucher\\)$"
+      },
+      "cashless": {
+        "base_high": "^Základ 21% \\(Cashless\\)$",
+        "vat_high": "^DPH 21% \\(Cashless\\)$",
+        "gross_high": "^Tržby s DPH 21% \\(Cashless\\)$",
+        "base_low": "^Základ 12% \\(Cashless\\)$",
+        "vat_low": "^DPH 12% \\(Cashless\\)$",
+        "gross_low": "^Tržby s DPH 12% \\(Cashless\\)$",
+        "base_none": "^Základ 0% \\(Cashless\\)$",
+        "vat_none": "^DPH 0% \\(Cashless\\)$",
+        "gross_none": "^Tržby s DPH 0% \\(Cashless\\)$"
       }
     }
   },
@@ -79,6 +90,11 @@
     "voucher": { 
       "ids": "Šekem", 
       "paymentType": "cheque",
+      "classificationVAT": "UDA5"
+    },
+    "cashless": {
+      "ids": "Cashless",
+      "paymentType": "cashless",
       "classificationVAT": "UDA5"
     }
   },
@@ -120,11 +136,17 @@
           "high": "21% Beverage - voucherem", 
           "low": "12% Food - voucherem", 
           "none": "0% Service charge - voucherem" 
+        },
+        "cashless": {
+          "high": "21% Beverage",
+          "low": "12% Food ",
+          "none": "0% Service Charge"
         }
       },
       "invoice_header_texts": {
         "card": "Tržby Bar & Grill - kartou",
-        "voucher": "Tržby Bar & Grill - voucherem"
+        "voucher": "Tržby Bar & Grill - voucherem",
+        "cashless": "Tržby Bistro & Grill - voucher cashless"
       }
     },
     "Bistro": {
@@ -160,11 +182,17 @@
           "high": "21% Beverage - voucherem", 
           "low": "12% Food - voucherem", 
           "none": "0% Service charge - voucherem" 
+        },
+        "cashless": {
+          "high": "21% Beverage",
+          "low": "12% Food ",
+          "none": "0% Service Charge"
         }
       },
       "invoice_header_texts": {
         "card": "Tržby Bistro - placeno kartou",
-        "voucher": "Tržby Bistro - placeno voucherem"
+        "voucher": "Tržby Bistro - placeno voucherem",
+        "cashless": "Tržby Molo Bistro - voucher cashless"
       }
     },
     "Restaurant": {
@@ -199,11 +227,17 @@
           "high": "21% Beverage - voucherem", 
           "low": "12% Food - voucherem", 
           "none": "0% Service charge - voucherem" 
+        },
+        "cashless": {
+          "high": "21% Beverage",
+          "low": "12% Food ",
+          "none": "0% Service Charge"
         }
       },
       "invoice_header_texts": {
         "card": "Tržby MOLO Restaurant - kartou",
-        "voucher": "Tržby MOLO Restaurant - voucherem"
+        "voucher": "Tržby MOLO Restaurant - voucherem",
+        "cashless": "Tržby MOLO Restaurant - voucher cashless"
       }
     },
     "CDL": {
@@ -238,11 +272,17 @@
           "high": "21% Beverage - voucherem", 
           "low": "12% Food - voucherem", 
           "none": "0% Service charge - voucherem" 
+        },
+        "cashless": {
+          "high": "21% Beverage",
+          "low": "12% Food ",
+          "none": "0% Service Charge"
         }
       },
       "invoice_header_texts": {
         "card": "Tržby CDL - kartou",
-        "voucher": "Tržby CDL - voucherem"
+        "voucher": "Tržby CDL - voucherem",
+        "cashless": "Tržby Café du Lac - voucher cashless"
       }
     },
     "Molo2": {
@@ -277,11 +317,17 @@
           "high": "21% Beverage - voucherem", 
           "low": "12% Food - voucherem", 
           "none": "0% Service charge - voucherem" 
+        },
+        "cashless": {
+          "high": "21% Beverage",
+          "low": "12% Food ",
+          "none": "0% Service Charge"
         }
       },
       "invoice_header_texts": {
         "card": "Tržby Molo2 - kartou",
-        "voucher": "Tržby Molo2 - voucherem"
+        "voucher": "Tržby Molo2 - voucherem",
+        "cashless": "Tržby MOLO2 - voucher cashless"
       }
     }
   }

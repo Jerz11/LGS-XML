@@ -404,34 +404,43 @@ DEFAULT_CONFIG = {
     },
     "payment_ids": {
         "card":    {"ids": "Plat.kartou", "paymentType": "creditcard"},
-        "voucher": {"ids": "Šekem",      "paymentType": "cheque"}
+        "voucher": {"ids": "Šekem",      "paymentType": "cheque"},
+        "cashless": {"ids": "Cashless",  "paymentType": "cashless"}
     },
     "outlets": {
         # Bistro
         "Bistro": {
             "centre": "3", "cashAccount_ids": "Bistro",
             "voucher_header_text": "Tržby hotově Molo Bistro",
+            "invoice_header_texts": {
+                "cashless": "Tržby Molo Bistro - voucher cashless"
+            },
             "accounts": {
                 "inv": {"high": "315000/602116", "low": "315000/602114", "none": "315000/602117"},
                 "vch": {"high": "211000/602116", "low": "211000/602114", "none": "211000/602117"}
             },
             "item_texts": {
-                "cash":    {"high": "21% Beverage - hotově", "low": "12% Food - hotově", "none": "0% Service charge - hotově"},
-                "card":    {"high": "21% Beverage - kartou", "low": "12% Food - kartou", "none": "0% Service charge - kartou"},
-                "voucher": {"high": "21% Beverage - voucherem", "low": "12% Food - voucherem", "none": "0% Service charge - voucherem"}
+                "cash":     {"high": "21% Beverage - hotově", "low": "12% Food - hotově", "none": "0% Service charge - hotově"},
+                "card":     {"high": "21% Beverage - kartou", "low": "12% Food - kartou", "none": "0% Service charge - kartou"},
+                "voucher":  {"high": "21% Beverage - voucherem", "low": "12% Food - voucherem", "none": "0% Service charge - voucherem"},
+                "cashless": {"high": "21% Beverage", "low": "12% Food ", "none": "0% Service Charge"}
             }
         },
         # Restaurant
         "Restaurant": {
             "centre": "1", "cashAccount_ids": "MOLO",
+            "invoice_header_texts": {
+                "cashless": "Tržby MOLO Restaurant - voucher cashless"
+            },
             "accounts": {
                 "inv": {"high": "315000/602112", "low": "315000/602110", "none": "315000/602113"},
                 "vch": {"high": "211000/602112", "low": "211000/602110", "none": "211000/602113"}
             },
             "item_texts": {
-                "cash":    {"high": "21% Beverage - hotově", "low": "12% Food - hotově", "none": "0% Service charge - hotově"},
-                "card":    {"high": "21% Beverage - kartou", "low": "12% Food - kartou", "none": "0% Service charge - kartou"},
-                "voucher": {"high": "21% Beverage - voucherem", "low": "12% Food - voucherem", "none": "0% Service charge - voucherem"}
+                "cash":     {"high": "21% Beverage - hotově", "low": "12% Food - hotově", "none": "0% Service charge - hotově"},
+                "card":     {"high": "21% Beverage - kartou", "low": "12% Food - kartou", "none": "0% Service charge - kartou"},
+                "voucher":  {"high": "21% Beverage - voucherem", "low": "12% Food - voucherem", "none": "0% Service charge - voucherem"},
+                "cashless": {"high": "21% Beverage", "low": "12% Food ", "none": "0% Service Charge"}
             }
         },
         # CDL
@@ -442,37 +451,48 @@ DEFAULT_CONFIG = {
                 "vch": {"high": "211000/602123", "low": "211000/602121", "none": "211000/602124"}
             },
             "invoice_header_texts": {
-                "card": "Tržby Café du Lac - kartou"
+                "card": "Tržby Café du Lac - kartou",
+                "cashless": "Tržby Café du Lac - voucher cashless"
             },
             "item_texts": {
-                "cash":    {"high": "21% Beverage - hotově", "low": "12% Food - hotově", "none": "0% Service charge - hotově"},
-                "card":    {"high": "21% Beverage - kartou", "low": "12% Food - kartou", "none": "0% Service charge - kartou"},
-                "voucher": {"high": "21% Beverage - voucherem", "low": "12% Food - voucherem", "none": "0% Service charge - voucherem"}
+                "cash":     {"high": "21% Beverage - hotově", "low": "12% Food - hotově", "none": "0% Service charge - hotově"},
+                "card":     {"high": "21% Beverage - kartou", "low": "12% Food - kartou", "none": "0% Service charge - kartou"},
+                "voucher":  {"high": "21% Beverage - voucherem", "low": "12% Food - voucherem", "none": "0% Service charge - voucherem"},
+                "cashless": {"high": "21% Beverage", "low": "12% Food ", "none": "0% Service Charge"}
             }
         },
         # B&G
         "B&G": {
             "centre": "1", "cashAccount_ids": "BaG",
+            "invoice_header_texts": {
+                "cashless": "Tržby Bistro & Grill - voucher cashless"
+            },
             "accounts": {
                 "inv": {"high": "315000/602112", "low": "315000/602110", "none": "315000/602113"},
                 "vch": {"high": "211000/602112", "low": "211000/602110", "none": "211000/602113"}
             },
             "item_texts": {
-                "cash":    {"high": "21% Beverage - hotově", "low": "12% Food - hotově", "none": "0% Service charge - hotově"},
-                "card":    {"high": "21% Beverage - kartou", "low": "12% Food - kartou", "none": "0% Service charge - kartou"},
-                "voucher": {"high": "21% Beverage - voucherem", "low": "12% Food - voucherem", "none": "0% Service charge - voucherem"}
+                "cash":     {"high": "21% Beverage - hotově", "low": "12% Food - hotově", "none": "0% Service charge - hotově"},
+                "card":     {"high": "21% Beverage - kartou", "low": "12% Food - kartou", "none": "0% Service charge - kartou"},
+                "voucher":  {"high": "21% Beverage - voucherem", "low": "12% Food - voucherem", "none": "0% Service charge - voucherem"},
+                "cashless": {"high": "21% Beverage", "low": "12% Food ", "none": "0% Service Charge"}
             }
         },
         # Molo2
         "Molo2": {
             "centre": "2", "cashAccount_ids": "MOLO",
+            "invoice_header_texts": {
+                "cashless": "Tržby MOLO2 - voucher cashless"
+            },
             "accounts": {
                 "inv": {"high": "315000/602112", "low": "315000/602110", "none": "315000/602113"},
                 "vch": {"high": "211000/602112", "low": "211000/602110", "none": "211000/602113"}
             },
             "item_texts": {
-                "cash": {"high": "21% Beverage - hotově", "low": "12% Food - hotově", "none": "0% Service charge - hotově"},
-                "card": {"high": "21% Beverage - kartou", "low": "12% Food - kartou", "none": "0% Service charge - kartou"}
+                "cash":     {"high": "21% Beverage - hotově", "low": "12% Food - hotově", "none": "0% Service charge - hotově"},
+                "card":     {"high": "21% Beverage - kartou", "low": "12% Food - kartou", "none": "0% Service charge - kartou"},
+                "voucher":  {"high": "21% Beverage - voucherem", "low": "12% Food - voucherem", "none": "0% Service charge - voucherem"},
+                "cashless": {"high": "21% Beverage", "low": "12% Food ", "none": "0% Service Charge"}
             }
         }
     },
@@ -512,6 +532,17 @@ DEFAULT_CONFIG = {
                 "base_none":  "^Základ 0% \\(Voucher\\)$",
                 "vat_none":   "^DPH 0% \\(Voucher\\)$",
                 "gross_none": "^Tržby s DPH 0% \\(Voucher\\)$"
+            },
+            "cashless": {
+                "base_high":  "^Základ 21% \\(Cashless\\)$",
+                "vat_high":   "^DPH 21% \\(Cashless\\)$",
+                "gross_high": "^Tržby s DPH 21% \\(Cashless\\)$",
+                "base_low":   "^Základ 12% \\(Cashless\\)$",
+                "vat_low":    "^DPH 12% \\(Cashless\\)$",
+                "gross_low":  "^Tržby s DPH 12% \\(Cashless\\)$",
+                "base_none":  "^Základ 0% \\(Cashless\\)$",
+                "vat_none":   "^DPH 0% \\(Cashless\\)$",
+                "gross_none": "^Tržby s DPH 0% \\(Cashless\\)$"
             },
             "invoice_ignore": {"any": ["\\(Faktura\\)", "\\(Bankovní převod\\)"]},
             "totals_ignore":  {"any": ["^Základ Celkem$", "^DPH Celkem$", "^Tržby s DPH Celkem$"]}
@@ -693,8 +724,8 @@ class ExcelAdapter:
         row = df.loc[mask].iloc[0]
 
         # build values
-        methods = {"cash": {}, "card": {}, "voucher": {}}
-        for method_key in ["cash", "card", "voucher"]:
+        methods = {"cash": {}, "card": {}, "voucher": {}, "cashless": {}}
+        for method_key in ["cash", "card", "voucher", "cashless"]:
             cols = self._section_values(df, method_key)
             for rate_key in ["high", "low", "none"]:
                 base = norm_number(row.get(cols.get(f"base_{rate_key}", ""))) if cols.get(f"base_{rate_key}") else 0.0
@@ -830,12 +861,12 @@ def build_invoice(method: str, amounts: Dict[str, float], day: date, outlet_cfg:
     hdr = E("invoiceHeader", ns="inv", nsmap={"rsp": NS["rsp"], "rdc": NS["rdc"], "typ": NS["typ"], "ftr": NS["ftr"], "lst": NS["lst"]})
     hdr.append(E("invoiceType", "receivable", ns="inv"))
 
-    # number + symVar always present
+    # number - use 2509 prefix for Ostatni Pohledavky, no symVar (will be auto-generated by Pohoda)
     nr = outlet_cfg.get(f"invoice_numberRequested_{method}") or outlet_cfg.get("invoice_numberRequested")
     if not nr:
-        nr = f"{day:%y%m%d}{datetime.now():%H%M%S}"
+        nr = "2509"
     num = E("number", ns="inv"); num.append(E("numberRequested", nr, "typ")); hdr.append(num)
-    hdr.append(E("symVar", nr, "inv"))
+    # symVar removed - will be auto-generated by Pohoda
 
     # dates
     dt_txt = day.strftime("%Y-%m-%d")
@@ -882,7 +913,10 @@ def build_invoice(method: str, amounts: Dict[str, float], day: date, outlet_cfg:
         pay.append(E("ids", cfg["payment_ids"]["card"]["ids"], "typ"))
         pay.append(E("paymentType", cfg["payment_ids"]["card"]["paymentType"], "typ"))
         liq = next_business_day(day)
-    else:
+    elif method == "cashless":
+        pay.append(E("ids", cfg["payment_ids"]["cashless"]["ids"], "typ"))
+        liq = day
+    else:  # voucher
         pay.append(E("ids", cfg["payment_ids"]["voucher"]["ids"], "typ"))
         pay.append(E("paymentType", cfg["payment_ids"]["voucher"]["paymentType"], "typ"))
         liq = day
@@ -967,11 +1001,18 @@ def build_voucher(amounts: Dict[str, float], day: date, outlet_cfg: dict, outlet
         or cfg.get("voucher_numberRequested")
     )
     
-    # If no custom number configured, generate default pattern
+    # If no custom number configured, generate 4-character prefix based on outlet
     if not nr:
-        now = datetime.now()
-        prefix = outlet_cfg.get("cashAccount_ids", "UNK")
-        nr = f"{prefix}P{now:%H%M%S}"
+        # Mapping outlets to 4-character prefixes
+        outlet_prefixes = {
+            "Bistro": "BisP",
+            "CDL": "CdLP", 
+            "B&G": "BaGP",
+            "Restaurant": "MOLP",
+            "Molo2": "MOLP"
+        }
+        prefix = outlet_prefixes.get(outlet_name, "UNKN")
+        nr = prefix
     
     # ALWAYS add number element (required by Pohoda XML schema)
     num = E("number", ns="vch")
@@ -1560,6 +1601,20 @@ class MainWindow(QtWidgets.QMainWindow):
                     note_override = f"{base_note}, Text = voucher"
                     tree = datapack_with(build_invoice("voucher", voucher_amounts, day, outlet_cfg), day, outlet, doc_type="invoice_voucher", note_override=note_override)
                     fname = format_filename("ostatni", day, outlet, method_label="voucherem")
+                    fpath = out_dir / fname
+                    tree.write(str(fpath), encoding=DEFAULT_CONFIG["global_rules"]["encoding"], xml_declaration=True)
+                    files.append(fname); success += 1
+                # CASHLESS
+                cashless_amounts = methods.get("cashless", {})
+                if any(cashless_amounts.get(k, 0.0) for k in ["base_high","vat_high","base_low","vat_low","base_none","vat_none"]):
+                    total = (cashless_amounts.get("base_high",0)+cashless_amounts.get("vat_high",0)+
+                             cashless_amounts.get("base_low",0)+cashless_amounts.get("vat_low",0)+
+                             cashless_amounts.get("base_none",0)+cashless_amounts.get("vat_none",0))
+                    # For invoices, note format is: "Uživatelský export, Datum = DD.MM.YYYY, Text = method"
+                    base_note = f"Uživatelský export, Datum = {day.strftime('%d.%m.%Y')}"
+                    note_override = f"{base_note}, Text = cashless"
+                    tree = datapack_with(build_invoice("cashless", cashless_amounts, day, outlet_cfg), day, outlet, doc_type="invoice_cashless", note_override=note_override)
+                    fname = format_filename("ostatni", day, outlet, method_label="cashless")
                     fpath = out_dir / fname
                     tree.write(str(fpath), encoding=DEFAULT_CONFIG["global_rules"]["encoding"], xml_declaration=True)
                     files.append(fname); success += 1
