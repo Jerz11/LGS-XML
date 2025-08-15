@@ -152,7 +152,7 @@
     "Bistro": {
       "centre": "3",
       "cashAccount_ids": "Bistro",
-      "voucher_numberRequested": "BisP0070",
+      "voucher_numberRequested": "BisP",
       "voucher_header_text": "Tržby hotově Molo Bistro",
       "accounts": {
         "inv": { 
