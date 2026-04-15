@@ -1,16 +1,27 @@
 {
   "version": "1.0",
+  "config_version": "2.3",
   "ico": "17126240",
-  "programVersion": "14005.6 SQL (14.7.2025)",
+  "programVersion": "14203.8 SQL (28.1.2026)",
   "application": "Transformace",
   "timezone": "Europe/Prague",
   "datapack_key": "6e1bbb32-6ccb-4eff-904d-a872a7dc19c3",
   "note_text_by_outlet": {
     "Bistro": "bistro",
-    "Restaurant": "restauran",
-    "CDL": "cdl", 
+    "Restaurant": "res",
+    "CDL": "caf",
     "B&G": "bar",
     "Molo2": "2"
+  },
+  "number_series": {
+    "voucher_prefix_by_outlet": {
+      "Bistro": "B{YY}P",
+      "Restaurant": "R{YY}P",
+      "CDL": "C{YY}P",
+      "B&G": "{YY}GP",
+      "Molo2": "R{YY}P"
+    },
+    "invoice_prefix": "{YY}OP"
   },
   "header_map": {
     "date_col_candidates": ["^Datum$", "^Den$", "^$"],
@@ -82,13 +93,13 @@
     "date_from_filename": true
   },
   "payment_ids": {
-    "card": { 
-      "ids": "Plat.kartou", 
+    "card": {
+      "ids": "Plat.kartou",
       "paymentType": "creditcard",
       "classificationVAT": "UDA5"
     },
-    "voucher": { 
-      "ids": "Šekem", 
+    "voucher": {
+      "ids": "Šekem",
       "paymentType": "cheque",
       "classificationVAT": "UDA5"
     },
@@ -100,42 +111,44 @@
   },
   "liquidation_rules": {
     "cash": "same_day",
-    "card": "next_business_day", 
+    "card": "next_business_day",
     "voucher": "same_day"
   },
   "outlets": {
     "B&G": {
-      "centre": "1",
+      "centre": "MOLO GASTR",
+      "activity_id": "10206",
       "cashAccount_ids": "BaG",
-      "voucher_numberRequested_pattern": "BaGP{#####}",
-      "voucher_header_text": "Tržby hotově Bar & Grill ",
+      "voucher_header_text": "Tržby hotově Bar & Grill",
       "accounts": {
-        "inv": { 
-          "high": "315000/602112", 
-          "low": "315000/602110", 
-          "none": "315000/602113" 
+        "inv_header": "315000/602112",
+        "inv": {
+          "high": "Beverage",
+          "low": "FOOD",
+          "none": "SCH"
         },
-        "vch": { 
-          "high": "211000/602112", 
-          "low": "211000/602110", 
-          "none": "211000/602113" 
+        "vch_header": "211000/602112",
+        "vch": {
+          "high": "Beverage",
+          "low": "FOOD",
+          "none": "SCh"
         }
       },
       "item_texts": {
-        "cash": { 
-          "high": "21% Beverage - hotově", 
-          "low": "12% Food - hotově", 
-          "none": "0% Service charge - hotově" 
+        "cash": {
+          "high": "21% Beverage - hotově",
+          "low": "12% Food - hotově",
+          "none": "0% Service charge - hotově"
         },
-        "card": { 
-          "high": "21% Beverage - kartou", 
-          "low": "12% Food - kartou", 
-          "none": "0% Service charge - kartou" 
+        "card": {
+          "high": "21% Beverage - kartou",
+          "low": "12% Food - kartou",
+          "none": "0% Service charge - kartou"
         },
-        "voucher": { 
-          "high": "21% Beverage - voucherem", 
-          "low": "12% Food - voucherem", 
-          "none": "0% Service charge - voucherem" 
+        "voucher": {
+          "high": "21% Beverage - voucherem",
+          "low": "12% Food - voucherem",
+          "none": "0% Service charge - voucherem"
         },
         "cashless": {
           "high": "21% Beverage",
@@ -144,44 +157,45 @@
         }
       },
       "invoice_header_texts": {
-        "card": "Tržby Bar & Grill - kartou",
+        "card": "Tržby card Bar & Grill",
         "voucher": "Tržby Bar & Grill - voucherem",
-        "cashless": "Tržby Bistro & Grill - voucher cashless"
+        "cashless": "Tržby Bar & Grill - voucher cashless"
       }
     },
     "Bistro": {
-      "centre": "3",
+      "centre": "MOLO GASTR",
+      "activity_id": "10207",
       "cashAccount_ids": "Bistro",
-      "voucher_numberRequested": "BisP",
-      "voucher_header_text": "Tržby hotově Molo Bistro",
+      "voucher_header_text": "Tržby hotově Bistro",
       "accounts": {
-        "inv": { 
-          "high": "315000/602116", 
-          "low": "315000/602114", 
-          "none": "315000/602117" 
+        "inv_header": "315000/602116",
+        "inv": {
+          "high": "Beverage",
+          "low": "FOOD",
+          "none": "SCH"
         },
-        "inv_header": "315000/602112",
-        "vch": { 
-          "high": "211000/602116", 
-          "low": "211000/602114", 
-          "none": "211000/602117" 
+        "vch_header": "211000/602116",
+        "vch": {
+          "high": "Beverage",
+          "low": "FOOD",
+          "none": "SCh"
         }
       },
       "item_texts": {
-        "cash": { 
-          "high": "21% Beverage - hotově", 
-          "low": "12% Food - hotově", 
-          "none": "0% Service charge - hotově" 
+        "cash": {
+          "high": "21% Beverage - hotově",
+          "low": "12% Food - hotově",
+          "none": "0% Service charge - hotově"
         },
-        "card": { 
-          "high": "21% Beverage - kartou", 
-          "low": "12% Food - kartou", 
-          "none": "0% Service charge - kartou" 
+        "card": {
+          "high": "21% Beverage - kartou",
+          "low": "12% Food - kartou",
+          "none": "0% Service charge - kartou"
         },
-        "voucher": { 
-          "high": "21% Beverage - voucherem", 
-          "low": "12% Food - voucherem", 
-          "none": "0% Service charge - voucherem" 
+        "voucher": {
+          "high": "21% Beverage - voucherem",
+          "low": "12% Food - voucherem",
+          "none": "0% Service charge - voucherem"
         },
         "cashless": {
           "high": "21% Beverage",
@@ -190,43 +204,45 @@
         }
       },
       "invoice_header_texts": {
-        "card": "Tržby Bistro - placeno kartou",
-        "voucher": "Tržby Bistro - placeno voucherem",
-        "cashless": "Tržby Molo Bistro - voucher cashless"
+        "card": "Tržby card Bistro",
+        "voucher": "Tržby Bistro - voucherem",
+        "cashless": "Tržby Bistro - voucher cashless"
       }
     },
     "Restaurant": {
-      "centre": "1",
+      "centre": "MOLO GASTR",
+      "activity_id": "10205",
       "cashAccount_ids": "MOLO",
-      "voucher_numberRequested_pattern": "MOLP{#####}",
-      "voucher_header_text": "Tržby hotově Molo Restaurant",
+      "voucher_header_text": "Tržby hotově Restaurant",
       "accounts": {
-        "inv": { 
-          "high": "315000/602112", 
-          "low": "315000/602110", 
-          "none": "315000/602113" 
+        "inv_header": "315000/602112",
+        "inv": {
+          "high": "Beverage",
+          "low": "FOOD",
+          "none": "SCH"
         },
-        "vch": { 
-          "high": "211000/602112", 
-          "low": "211000/602110", 
-          "none": "211000/602113" 
+        "vch_header": "211000/602112",
+        "vch": {
+          "high": "Beverage",
+          "low": "FOOD",
+          "none": "SCh"
         }
       },
       "item_texts": {
-        "cash": { 
-          "high": "21% Beverage - hotově", 
-          "low": "12% Food - hotově", 
-          "none": "0% Service charge - hotově" 
+        "cash": {
+          "high": "21% Beverage - hotově",
+          "low": "12% Food - hotově",
+          "none": "0% Service charge - hotově"
         },
-        "card": { 
-          "high": "21% Beverage - kartou", 
-          "low": "12% Food - kartou", 
-          "none": "0% Service charge - kartou" 
+        "card": {
+          "high": "21% Beverage - kartou",
+          "low": "12% Food - kartou",
+          "none": "0% Service charge - kartou"
         },
-        "voucher": { 
-          "high": "21% Beverage - voucherem", 
-          "low": "12% Food - voucherem", 
-          "none": "0% Service charge - voucherem" 
+        "voucher": {
+          "high": "21% Beverage - voucherem",
+          "low": "12% Food - voucherem",
+          "none": "0% Service charge - voucherem"
         },
         "cashless": {
           "high": "21% Beverage",
@@ -235,43 +251,45 @@
         }
       },
       "invoice_header_texts": {
-        "card": "Tržby MOLO Restaurant - kartou",
-        "voucher": "Tržby MOLO Restaurant - voucherem",
-        "cashless": "Tržby MOLO Restaurant - voucher cashless"
+        "card": "Tržby card Restaurant",
+        "voucher": "Tržby Restaurant - voucherem",
+        "cashless": "Tržby Restaurant - voucher cashless"
       }
     },
     "CDL": {
-      "centre": "4",
+      "centre": "MOLO GASTR",
+      "activity_id": "10208",
       "cashAccount_ids": "CdL",
-      "voucher_numberRequested_pattern": "CdLP{#####}",
-      "voucher_header_text": "Tržby hotově Molo Café du Lac - hotově",
+      "voucher_header_text": "Tržby hotově Café du Lac",
       "accounts": {
-        "inv": { 
-          "high": "315000/602123", 
-          "low": "315000/602121", 
-          "none": "315000/602124" 
+        "inv_header": "315000/602123",
+        "inv": {
+          "high": "Beverage",
+          "low": "FOOD",
+          "none": "SCH"
         },
-        "vch": { 
-          "high": "211000/602123", 
-          "low": "211000/602121", 
-          "none": "211000/602124" 
+        "vch_header": "211000/602123",
+        "vch": {
+          "high": "Beverage",
+          "low": "FOOD",
+          "none": "SCh"
         }
       },
       "item_texts": {
-        "cash": { 
-          "high": "21% Beverage - hotově", 
-          "low": "12% Food - hotově", 
-          "none": "0% Service charge - hotově" 
+        "cash": {
+          "high": "21% Beverage - hotově",
+          "low": "12% Food - hotově",
+          "none": "0% Service charge - hotově"
         },
-        "card": { 
-          "high": "21% Beverage - kartou", 
-          "low": "12% Food - kartou", 
-          "none": "0% Service charge - kartou" 
+        "card": {
+          "high": "21% Beverage - kartou",
+          "low": "12% Food - kartou",
+          "none": "0% Service charge - kartou"
         },
-        "voucher": { 
-          "high": "21% Beverage - voucherem", 
-          "low": "12% Food - voucherem", 
-          "none": "0% Service charge - voucherem" 
+        "voucher": {
+          "high": "21% Beverage - voucherem",
+          "low": "12% Food - voucherem",
+          "none": "0% Service charge - voucherem"
         },
         "cashless": {
           "high": "21% Beverage",
@@ -280,43 +298,45 @@
         }
       },
       "invoice_header_texts": {
-        "card": "Tržby CDL - kartou",
-        "voucher": "Tržby CDL - voucherem",
+        "card": "Tržby card Café du Lac",
+        "voucher": "Tržby Café du Lac - voucherem",
         "cashless": "Tržby Café du Lac - voucher cashless"
       }
     },
     "Molo2": {
-      "centre": "2",
+      "centre": "MOLO GASTR",
+      "activity_id": "10205",
       "cashAccount_ids": "MOLO",
-      "voucher_numberRequested_pattern": "MOLP{#####}",
       "voucher_header_text": "Tržby hotově Molo 2 Stánek",
       "accounts": {
-        "inv": { 
-          "high": "315000/602112", 
-          "low": "315000/602110", 
-          "none": "315000/602113" 
+        "inv_header": "315000/602112",
+        "inv": {
+          "high": "Beverage",
+          "low": "FOOD",
+          "none": "SCH"
         },
-        "vch": { 
-          "high": "211000/602112", 
-          "low": "211000/602110", 
-          "none": "211000/602113" 
+        "vch_header": "211000/602112",
+        "vch": {
+          "high": "Beverage",
+          "low": "FOOD",
+          "none": "SCh"
         }
       },
       "item_texts": {
-        "cash": { 
-          "high": "21% Beverage - hotově", 
-          "low": "12% Food - hotově", 
-          "none": "0% Service charge - hotově" 
+        "cash": {
+          "high": "21% Beverage - hotově",
+          "low": "12% Food - hotově",
+          "none": "0% Service charge - hotově"
         },
-        "card": { 
-          "high": "21% Beverage - kartou", 
-          "low": "12% Food - kartou", 
-          "none": "0% Service charge - kartou" 
+        "card": {
+          "high": "21% Beverage - kartou",
+          "low": "12% Food - kartou",
+          "none": "0% Service charge - kartou"
         },
-        "voucher": { 
-          "high": "21% Beverage - voucherem", 
-          "low": "12% Food - voucherem", 
-          "none": "0% Service charge - voucherem" 
+        "voucher": {
+          "high": "21% Beverage - voucherem",
+          "low": "12% Food - voucherem",
+          "none": "0% Service charge - voucherem"
         },
         "cashless": {
           "high": "21% Beverage",
@@ -327,7 +347,7 @@
       "invoice_header_texts": {
         "card": "Tržby Molo2 - kartou",
         "voucher": "Tržby Molo2 - voucherem",
-        "cashless": "Tržby MOLO2 - voucher cashless"
+        "cashless": "Tržby Molo2 - voucher cashless"
       }
     }
   }

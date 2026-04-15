@@ -38,6 +38,7 @@ from PySide6 import QtCore, QtGui, QtWidgets
 from lxml import etree as ET
 
 APP_NAME = "LGS XML"
+APP_VERSION = "2.0.2"
 TZ = "Europe/Prague"  # informational; Windows uses local time for yymmdd_hhmmss
 
 # ============================================================================
@@ -191,10 +192,23 @@ def get_professional_stylesheet() -> str:
     
     QComboBox QAbstractItemView {{
         background-color: white;
+        color: {COLORS['text_primary']};
         border: 1px solid #E8EAED;
         border-radius: 8px;
         padding: 4px;
         selection-background-color: {COLORS['primary_green_light']};
+        selection-color: {COLORS['text_primary']};
+    }}
+
+    QComboBox QAbstractItemView::item {{
+        color: {COLORS['text_primary']};
+        padding: 6px 12px;
+        min-height: 24px;
+    }}
+
+    QComboBox QAbstractItemView::item:selected {{
+        background-color: {COLORS['primary_green_light']};
+        color: {COLORS['text_primary']};
     }}
     
     /* Input Fields */
@@ -213,6 +227,28 @@ def get_professional_stylesheet() -> str:
         border-width: 2px;
     }}
     
+    /* SpinBox */
+    QSpinBox {{
+        background-color: white;
+        color: {COLORS['text_primary']};
+        border: 1px solid #E8EAED;
+        border-radius: 12px;
+        padding: 8px 16px;
+        padding-right: 30px;
+        font-size: 11pt;
+        font-weight: 500;
+        min-height: 24px;
+    }}
+
+    QSpinBox:hover {{
+        border-color: {COLORS['primary_green']};
+    }}
+
+    QSpinBox::up-button, QSpinBox::down-button {{
+        width: 24px;
+        border: none;
+    }}
+
     /* Professional Typography */
     QLabel {{
         color: {COLORS['text_primary']};
@@ -343,6 +379,26 @@ def get_professional_stylesheet() -> str:
         border-radius: 8px;
         border-left: 4px solid #E37400;
     }}
+
+    /* Message Box - force light theme for readability */
+    QMessageBox {{
+        background-color: white;
+    }}
+    QMessageBox QLabel {{
+        color: {COLORS['text_primary']};
+        font-size: 10pt;
+    }}
+    QMessageBox QPushButton {{
+        background-color: white;
+        color: {COLORS['text_primary']};
+        border: 1px solid #E8EAED;
+        border-radius: 8px;
+        padding: 8px 24px;
+        min-width: 80px;
+    }}
+    QMessageBox QPushButton:hover {{
+        background-color: #F8F9FA;
+    }}
     """
 
 # Animation and Effects Helper
@@ -385,8 +441,9 @@ class ModernEffects:
 
 DEFAULT_CONFIG = {
     "version": "1.0",
+    "config_version": "2.3",
     "ico": "17126240",
-    "programVersion": "14005.6 SQL (14.7.2025)",
+    "programVersion": "14203.8 SQL (28.1.2026)",
     "application": "Transformace",
     "note_text": "tržby",
     "timezone": TZ,
@@ -407,17 +464,31 @@ DEFAULT_CONFIG = {
         "voucher": {"ids": "Šekem",      "paymentType": "cheque"},
         "cashless": {"ids": "Cashless",  "paymentType": "cashless"}
     },
+    "number_series": {
+        "voucher_prefix_by_outlet": {
+            "Bistro": "B{YY}P",
+            "Restaurant": "R{YY}P",
+            "CDL": "C{YY}P",
+            "B&G": "{YY}GP",
+            "Molo2": "R{YY}P"
+        },
+        "invoice_prefix": "{YY}OP"
+    },
     "outlets": {
         # Bistro
         "Bistro": {
-            "centre": "3", "cashAccount_ids": "Bistro",
-            "voucher_header_text": "Tržby hotově Molo Bistro",
+            "centre": "MOLO GASTR", "activity_id": "10207", "cashAccount_ids": "Bistro",
+            "voucher_header_text": "Tržby hotově Bistro",
             "invoice_header_texts": {
-                "cashless": "Tržby Molo Bistro - voucher cashless"
+                "card": "Tržby card Bistro",
+                "voucher": "Tržby Bistro - voucherem",
+                "cashless": "Tržby Bistro - voucher cashless"
             },
             "accounts": {
-                "inv": {"high": "315000/602116", "low": "315000/602114", "none": "315000/602117"},
-                "vch": {"high": "211000/602116", "low": "211000/602114", "none": "211000/602117"}
+                "inv_header": "315000/602116",
+                "inv": {"high": "Beverage", "low": "FOOD", "none": "SCH"},
+                "vch_header": "211000/602116",
+                "vch": {"high": "Beverage", "low": "FOOD", "none": "SCh"}
             },
             "item_texts": {
                 "cash":     {"high": "21% Beverage - hotově", "low": "12% Food - hotově", "none": "0% Service charge - hotově"},
@@ -428,13 +499,18 @@ DEFAULT_CONFIG = {
         },
         # Restaurant
         "Restaurant": {
-            "centre": "1", "cashAccount_ids": "MOLO",
+            "centre": "MOLO GASTR", "activity_id": "10205", "cashAccount_ids": "MOLO",
+            "voucher_header_text": "Tržby hotově Restaurant",
             "invoice_header_texts": {
-                "cashless": "Tržby MOLO Restaurant - voucher cashless"
+                "card": "Tržby card Restaurant",
+                "voucher": "Tržby Restaurant - voucherem",
+                "cashless": "Tržby Restaurant - voucher cashless"
             },
             "accounts": {
-                "inv": {"high": "315000/602112", "low": "315000/602110", "none": "315000/602113"},
-                "vch": {"high": "211000/602112", "low": "211000/602110", "none": "211000/602113"}
+                "inv_header": "315000/602112",
+                "inv": {"high": "Beverage", "low": "FOOD", "none": "SCH"},
+                "vch_header": "211000/602112",
+                "vch": {"high": "Beverage", "low": "FOOD", "none": "SCh"}
             },
             "item_texts": {
                 "cash":     {"high": "21% Beverage - hotově", "low": "12% Food - hotově", "none": "0% Service charge - hotově"},
@@ -445,13 +521,17 @@ DEFAULT_CONFIG = {
         },
         # CDL
         "CDL": {
-            "centre": "4", "cashAccount_ids": "CdL",
+            "centre": "MOLO GASTR", "activity_id": "10208", "cashAccount_ids": "CdL",
+            "voucher_header_text": "Tržby hotově Café du Lac",
             "accounts": {
-                "inv": {"high": "315000/602123", "low": "315000/602121", "none": "315000/602124"},
-                "vch": {"high": "211000/602123", "low": "211000/602121", "none": "211000/602124"}
+                "inv_header": "315000/602123",
+                "inv": {"high": "Beverage", "low": "FOOD", "none": "SCH"},
+                "vch_header": "211000/602123",
+                "vch": {"high": "Beverage", "low": "FOOD", "none": "SCh"}
             },
             "invoice_header_texts": {
-                "card": "Tržby Café du Lac - kartou",
+                "card": "Tržby card Café du Lac",
+                "voucher": "Tržby Café du Lac - voucherem",
                 "cashless": "Tržby Café du Lac - voucher cashless"
             },
             "item_texts": {
@@ -463,13 +543,18 @@ DEFAULT_CONFIG = {
         },
         # B&G
         "B&G": {
-            "centre": "1", "cashAccount_ids": "BaG",
+            "centre": "MOLO GASTR", "activity_id": "10206", "cashAccount_ids": "BaG",
+            "voucher_header_text": "Tržby hotově Bar & Grill",
             "invoice_header_texts": {
-                "cashless": "Tržby Bistro & Grill - voucher cashless"
+                "card": "Tržby card Bar & Grill",
+                "voucher": "Tržby Bar & Grill - voucherem",
+                "cashless": "Tržby Bar & Grill - voucher cashless"
             },
             "accounts": {
-                "inv": {"high": "315000/602112", "low": "315000/602110", "none": "315000/602113"},
-                "vch": {"high": "211000/602112", "low": "211000/602110", "none": "211000/602113"}
+                "inv_header": "315000/602112",
+                "inv": {"high": "Beverage", "low": "FOOD", "none": "SCH"},
+                "vch_header": "211000/602112",
+                "vch": {"high": "Beverage", "low": "FOOD", "none": "SCh"}
             },
             "item_texts": {
                 "cash":     {"high": "21% Beverage - hotově", "low": "12% Food - hotově", "none": "0% Service charge - hotově"},
@@ -480,13 +565,18 @@ DEFAULT_CONFIG = {
         },
         # Molo2
         "Molo2": {
-            "centre": "2", "cashAccount_ids": "MOLO",
+            "centre": "MOLO GASTR", "activity_id": "10205", "cashAccount_ids": "MOLO",
+            "voucher_header_text": "Tržby hotově Molo 2 Stánek",
             "invoice_header_texts": {
-                "cashless": "Tržby MOLO2 - voucher cashless"
+                "card": "Tržby Molo2 - kartou",
+                "voucher": "Tržby Molo2 - voucherem",
+                "cashless": "Tržby Molo2 - voucher cashless"
             },
             "accounts": {
-                "inv": {"high": "315000/602112", "low": "315000/602110", "none": "315000/602113"},
-                "vch": {"high": "211000/602112", "low": "211000/602110", "none": "211000/602113"}
+                "inv_header": "315000/602112",
+                "inv": {"high": "Beverage", "low": "FOOD", "none": "SCH"},
+                "vch_header": "211000/602112",
+                "vch": {"high": "Beverage", "low": "FOOD", "none": "SCh"}
             },
             "item_texts": {
                 "cash":     {"high": "21% Beverage - hotově", "low": "12% Food - hotově", "none": "0% Service charge - hotově"},
@@ -592,12 +682,17 @@ def load_config() -> dict:
     if CONFIG_PATH.exists():
         try:
             config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+            # Check config version — overwrite old config with new defaults on upgrade
+            if config.get("config_version") != DEFAULT_CONFIG.get("config_version"):
+                write_log(f"Config upgrade: {config.get('config_version', 'none')} → {DEFAULT_CONFIG['config_version']}")
+                CONFIG_PATH.write_text(json.dumps(DEFAULT_CONFIG, ensure_ascii=False, indent=2), encoding="utf-8")
+                return DEFAULT_CONFIG
             write_log(f"DEBUG: Successfully loaded config with {len(config.get('outlets', {}))} outlets")
             return config
         except Exception as e:
             write_log(f"DEBUG: Failed to load config: {e}")
             pass
-    
+
     # write default if not exists
     CONFIG_PATH.write_text(json.dumps(DEFAULT_CONFIG, ensure_ascii=False, indent=2), encoding="utf-8")
     return DEFAULT_CONFIG
@@ -652,6 +747,12 @@ def parse_month_year_from_filename(path: Path) -> Optional[Tuple[int,int]]:
     if not m:
         return None
     return int(m.group(1)), int(m.group(2))
+
+
+CZ_MONTHS = {
+    1: "leden", 2: "únor", 3: "březen", 4: "duben", 5: "květen", 6: "červen",
+    7: "červenec", 8: "srpen", 9: "září", 10: "říjen", 11: "listopad", 12: "prosinec"
+}
 
 
 def next_business_day(d: date) -> date:
@@ -861,12 +962,11 @@ def build_invoice(method: str, amounts: Dict[str, float], day: date, outlet_cfg:
     hdr = E("invoiceHeader", ns="inv", nsmap={"rsp": NS["rsp"], "rdc": NS["rdc"], "typ": NS["typ"], "ftr": NS["ftr"], "lst": NS["lst"]})
     hdr.append(E("invoiceType", "receivable", ns="inv"))
 
-    # number - use 2509 prefix for Ostatni Pohledavky, no symVar (will be auto-generated by Pohoda)
-    nr = outlet_cfg.get(f"invoice_numberRequested_{method}") or outlet_cfg.get("invoice_numberRequested")
-    if not nr:
-        nr = "2509"
+    # number - use {YY}OP template for year-aware numbering (Pohoda assigns sequence)
+    yy = str(day.year)[-2:]
+    nr_template = cfg.get("number_series", {}).get("invoice_prefix", "{YY}OP")
+    nr = nr_template.replace("{YY}", yy)
     num = E("number", ns="inv"); num.append(E("ids", nr, "typ")); hdr.append(num)
-    # symVar removed - will be auto-generated by Pohoda
 
     # dates
     dt_txt = day.strftime("%Y-%m-%d")
@@ -931,8 +1031,11 @@ def build_invoice(method: str, amounts: Dict[str, float], day: date, outlet_cfg:
     hdr.append(acc_el)
     hdr.append(E("symConst", bank.get("symConst", "0308"), "inv"))
 
-    # centre, liquidation, locks
+    # centre, activity, liquidation, locks
     centre = E("centre", ns="inv"); centre.append(E("ids", outlet_cfg["centre"], "typ")); hdr.append(centre)
+    activity_id = outlet_cfg.get("activity_id")
+    if activity_id:
+        act = E("activity", ns="inv"); act.append(E("ids", activity_id, "typ")); hdr.append(act)
     liq_el = E("liquidation", ns="inv"); liq_el.append(E("date", liq.strftime("%Y-%m-%d"), "typ")); hdr.append(liq_el)
     hdr.append(E("lock2", "false", "inv")); hdr.append(E("markRecord", "false", "inv"))
     inv.append(hdr)
@@ -991,29 +1094,13 @@ def build_voucher(amounts: Dict[str, float], day: date, outlet_cfg: dict, outlet
     hdr.append(E("voucherType", "receipt", "vch"))
     cash = E("cashAccount", ns="vch"); cash.append(E("ids", outlet_cfg["cashAccount_ids"], "typ")); hdr.append(cash)
 
-    # Number generation – resolved with precedence (outlet-specific → mapping → global)
-    # ALWAYS generate number as it's required by Pohoda XML schema
+    # Number generation – use {YY} template for year-aware numbering (Pohoda assigns sequence)
     cfg = load_config()
-    nr = (
-        outlet_cfg.get("voucher_numberRequested")
-        or outlet_cfg.get("numberRequested")
-        or (cfg.get("voucher_numberRequested_by_outlet", {}) or {}).get(outlet_name or "")
-        or cfg.get("voucher_numberRequested")
-    )
-    
-    # If no custom number configured, generate 4-character prefix based on outlet
-    if not nr:
-        # Mapping outlets to 4-character prefixes
-        outlet_prefixes = {
-            "Bistro": "BisP",
-            "CDL": "CdLP", 
-            "B&G": "BaGP",
-            "Restaurant": "MOLP",
-            "Molo2": "MOLP"
-        }
-        prefix = outlet_prefixes.get(outlet_name, "UNKN")
-        nr = prefix
-    
+    yy = str(day.year)[-2:]
+    prefix_map = cfg.get("number_series", {}).get("voucher_prefix_by_outlet", {})
+    nr_template = prefix_map.get(outlet_name or "", "X{YY}P")
+    nr = nr_template.replace("{YY}", yy)
+
     # ALWAYS add number element (required by Pohoda XML schema)
     num = E("number", ns="vch")
     num.append(E("ids", nr, "typ"))
@@ -1023,7 +1110,8 @@ def build_voucher(amounts: Dict[str, float], day: date, outlet_cfg: dict, outlet
     for nm in ("date", "datePayment", "dateTax"):
         hdr.append(E(nm, dt_txt, "vch"))
 
-    acc = E("accounting", ns="vch"); acc.append(E("ids", outlet_cfg["accounts"]["vch"]["high"], "typ")); hdr.append(acc)
+    vch_hdr_acc = outlet_cfg["accounts"].get("vch_header") or outlet_cfg["accounts"]["vch"]["high"]
+    acc = E("accounting", ns="vch"); acc.append(E("ids", vch_hdr_acc, "typ")); hdr.append(acc)
     clv = E("classificationVAT", ns="vch"); clv.append(E("ids", "UD", "typ")); hdr.append(clv)
 
     # header text – keep minimal; can be overridden by config
@@ -1053,6 +1141,9 @@ def build_voucher(amounts: Dict[str, float], day: date, outlet_cfg: dict, outlet
     hdr.append(my)
 
     centre = E("centre", ns="vch"); centre.append(E("ids", outlet_cfg["centre"], "typ")); hdr.append(centre)
+    activity_id = outlet_cfg.get("activity_id")
+    if activity_id:
+        act = E("activity", ns="vch"); act.append(E("ids", activity_id, "typ")); hdr.append(act)
     hdr.append(E("lock2", "false", "vch")); hdr.append(E("markRecord", "false", "vch"))
 
     # labels (e.g., Zelená)
@@ -1100,6 +1191,7 @@ def build_voucher(amounts: Dict[str, float], day: date, outlet_cfg: dict, outlet
     sum_el = E("voucherSummary", ns="vch", nsmap={"rsp": NS["rsp"], "rdc": NS["rdc"], "typ": NS["typ"], "ftr": NS["ftr"], "lst": NS["lst"]})
     sum_el.append(E("roundingDocument", "math2one", "vch"))
     sum_el.append(E("roundingVAT", "none", "vch"))
+    sum_el.append(E("calculateVAT", "false", "vch"))
     sum_el.append(E("typeCalculateVATInclusivePrice", "VATNewMethod", "vch"))
     add_sum_home_currency(sum_el, amounts, "vch")
     v.append(sum_el)
@@ -1163,13 +1255,16 @@ def datapack_with(child: ET.Element, day: date, outlet: str, doc_type: str, note
     if note_override is not None:
         note = note_override
     else:
-        # prefer outlet-specific mapping; fallback to global; ensure B&G → "bar" default if unspecified
+        # Default note for vouchers: "Datum = {měsíc_cz}, Datum = DD/MM/YYYY, Text = {outlet_note}"
         by_outlet = cfg.get("note_text_by_outlet", {}) or {}
         outlet_text = by_outlet.get(outlet)
         if not outlet_text and outlet == "B&G":
             outlet_text = "bar"
         note_extra = outlet_text or cfg.get("note_text", None)
-        note = f"Uživatelský export, Datum = {day.strftime('%d.%m.%Y')}" + (f", Text = {note_extra}" if note_extra else "")
+        month_cz = CZ_MONTHS.get(day.month, "")
+        note = f"Uživatelský export, Datum = {month_cz}, Datum = {day.strftime('%d/%m/%Y')}"
+        if note_extra:
+            note += f", Text = {note_extra}"
 
     root = E("dataPack", ns="dat", attrib={
         "version": "2.0",
@@ -1319,7 +1414,7 @@ class DayPicker(QtWidgets.QWidget):
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle(APP_NAME)
+        self.setWindowTitle(f"{APP_NAME} v{APP_VERSION}")
         self.resize(900, 600)
         
         # Apply professional styling
@@ -1346,6 +1441,18 @@ class MainWindow(QtWidgets.QMainWindow):
         top_layout.addWidget(outlet_lbl)
         top_layout.addWidget(self.outlet)
         top_layout.addStretch()
+
+        # Year selector (dynamic range: this year -1 to +1)
+        year_lbl = QtWidgets.QLabel("Rok:")
+        year_lbl.setStyleSheet("font-size: 14pt; font-weight: 700;")
+        current_year = datetime.now().year
+        self.year_spin = QtWidgets.QSpinBox()
+        self.year_spin.setRange(current_year - 1, current_year + 1)
+        self.year_spin.setValue(current_year)
+        self.year_spin.setFixedWidth(120)
+        top_layout.addWidget(year_lbl)
+        top_layout.addWidget(self.year_spin)
+
         main_layout.addLayout(top_layout)
         
         # Dropzone
@@ -1471,7 +1578,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def on_file_selected(self, p: Path):
         self.xlsx_path = p
-        self.setWindowTitle(f"{APP_NAME} — {p.name}")
+        self.setWindowTitle(f"{APP_NAME} v{APP_VERSION} — {p.name}")
         
         # Try to detect month/year from Excel content first, then from filename
         try:
@@ -1485,6 +1592,8 @@ class MainWindow(QtWidgets.QMainWindow):
                 
             self.month_year = my
             month, year = my
+            # Auto-set year spinner from detected year
+            self.year_spin.setValue(year)
         except PermissionError:
             QtWidgets.QMessageBox.warning(
                 self, APP_NAME,
@@ -1557,8 +1666,9 @@ class MainWindow(QtWidgets.QMainWindow):
         write_log(f"DEBUG: Outlet config loaded: {outlet_cfg.get('centre', 'MISSING')}")
         out_dir = Path(self.out_dir.text()); out_dir.mkdir(parents=True, exist_ok=True)
 
-        # iterate days
-        month, year = self.month_year
+        # iterate days — use year from spinner (user can override for year-end edge cases)
+        month, _ = self.month_year
+        year = self.year_spin.value()
         success = 0; files: List[str] = []
         for d in sel:
             day = date(year, month, d)
@@ -1575,17 +1685,16 @@ class MainWindow(QtWidgets.QMainWindow):
                     fpath = out_dir / fname
                     tree.write(str(fpath), encoding=DEFAULT_CONFIG["global_rules"]["encoding"], xml_declaration=True)
                     files.append(fname); success += 1
+                # Invoice note format: "Zd.plnění = DD/MM/YYYY, Text = {outlet_note}"
+                outlet_note = self.cfg.get("note_text_by_outlet", {}).get(outlet, "")
+                inv_note = f"Uživatelský export, Zd.plnění = {day.strftime('%d/%m/%Y')}"
+                if outlet_note:
+                    inv_note += f", Text = {outlet_note}"
+
                 # CARD
                 card_amounts = methods.get("card", {})
                 if any(card_amounts.get(k, 0.0) for k in ["base_high","vat_high","base_low","vat_low","base_none","vat_none"]):
-                    # compute Celkem for note (total gross) and keep outlet Text mapping
-                    total = (card_amounts.get("base_high",0)+card_amounts.get("vat_high",0)+
-                             card_amounts.get("base_low",0)+card_amounts.get("vat_low",0)+
-                             card_amounts.get("base_none",0)+card_amounts.get("vat_none",0))
-                    # For invoices, note format is: "Uživatelský export, Datum = DD.MM.YYYY, Text = method"
-                    base_note = f"Uživatelský export, Datum = {day.strftime('%d.%m.%Y')}"
-                    note_override = f"{base_note}, Text = kartou"
-                    tree = datapack_with(build_invoice("card", card_amounts, day, outlet_cfg), day, outlet, doc_type="invoice_card", note_override=note_override)
+                    tree = datapack_with(build_invoice("card", card_amounts, day, outlet_cfg), day, outlet, doc_type="invoice_card", note_override=inv_note)
                     fname = format_filename("ostatni", day, outlet, method_label="kartou")
                     fpath = out_dir / fname
                     tree.write(str(fpath), encoding=DEFAULT_CONFIG["global_rules"]["encoding"], xml_declaration=True)
@@ -1593,13 +1702,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 # VOUCHER
                 voucher_amounts = methods.get("voucher", {})
                 if any(voucher_amounts.get(k, 0.0) for k in ["base_high","vat_high","base_low","vat_low","base_none","vat_none"]):
-                    total = (voucher_amounts.get("base_high",0)+voucher_amounts.get("vat_high",0)+
-                             voucher_amounts.get("base_low",0)+voucher_amounts.get("vat_low",0)+
-                             voucher_amounts.get("base_none",0)+voucher_amounts.get("vat_none",0))
-                    # For invoices, note format is: "Uživatelský export, Datum = DD.MM.YYYY, Text = method"
-                    base_note = f"Uživatelský export, Datum = {day.strftime('%d.%m.%Y')}"
-                    note_override = f"{base_note}, Text = voucher"
-                    tree = datapack_with(build_invoice("voucher", voucher_amounts, day, outlet_cfg), day, outlet, doc_type="invoice_voucher", note_override=note_override)
+                    tree = datapack_with(build_invoice("voucher", voucher_amounts, day, outlet_cfg), day, outlet, doc_type="invoice_voucher", note_override=inv_note)
                     fname = format_filename("ostatni", day, outlet, method_label="voucherem")
                     fpath = out_dir / fname
                     tree.write(str(fpath), encoding=DEFAULT_CONFIG["global_rules"]["encoding"], xml_declaration=True)
@@ -1607,13 +1710,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 # CASHLESS
                 cashless_amounts = methods.get("cashless", {})
                 if any(cashless_amounts.get(k, 0.0) for k in ["base_high","vat_high","base_low","vat_low","base_none","vat_none"]):
-                    total = (cashless_amounts.get("base_high",0)+cashless_amounts.get("vat_high",0)+
-                             cashless_amounts.get("base_low",0)+cashless_amounts.get("vat_low",0)+
-                             cashless_amounts.get("base_none",0)+cashless_amounts.get("vat_none",0))
-                    # For invoices, note format is: "Uživatelský export, Datum = DD.MM.YYYY, Text = method"
-                    base_note = f"Uživatelský export, Datum = {day.strftime('%d.%m.%Y')}"
-                    note_override = f"{base_note}, Text = cashless"
-                    tree = datapack_with(build_invoice("cashless", cashless_amounts, day, outlet_cfg), day, outlet, doc_type="invoice_cashless", note_override=note_override)
+                    tree = datapack_with(build_invoice("cashless", cashless_amounts, day, outlet_cfg), day, outlet, doc_type="invoice_cashless", note_override=inv_note)
                     fname = format_filename("ostatni", day, outlet, method_label="cashless")
                     fpath = out_dir / fname
                     tree.write(str(fpath), encoding=DEFAULT_CONFIG["global_rules"]["encoding"], xml_declaration=True)
